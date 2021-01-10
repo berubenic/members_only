@@ -1,6 +1,6 @@
 <h2 class='has-text-centered title is-4'>
   <% if user_signed_in? %>
-    All Posts
+    Displaying all Posts
   <% else%>
     Log in to see who posted!
   <% end %>
@@ -15,9 +15,9 @@
 <% end %>
 <hr>
 <div class='container'>
-  <div class='tile is-ancestor'>
+  <div class='tile is-ancestor post-flex'>
     <% @posts.each do |post| %>
-      <div class='box tile is-child is-4 post-box'>
+      <div class='box tile is-parent is-4 post-box'>
         <%= link_to post do %>
           <div class='tile is-child'>
             <p class='title is-5 has-text-centered'><%= post.title %></p>
