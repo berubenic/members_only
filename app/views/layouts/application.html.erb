@@ -9,8 +9,39 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if flash[:notice] %>
+      <div class='notification is-primary global-notification'>
+        <p class='notice'><%= notice %></p>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class='notification is-danger global-notification'>
+        <p class='alert'><%= alert %></p>
+      </div>
+    <% end %>
+    <nav class='navbar' role='navigation' aria-label='main navigation'>
+      <div class='navbar-brand'>
+        <%= link_to root_path, class: 'navbar-item' do %>
+          <h1 class='title'>Members Only</h1>
+        <% end %>
+        <div role ='button' class='navbar-burger' data-target='navbarExample'>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div id='navbarExample' class='navbar-menu'>
+        <div class='navbar-end'>
+          <% if user_signed_in? %>
+            <p class='navbar-item'><%= link_to current_user.username, edit_user_registration_path %></p>
+            <p class='navbar-item'><%= link_to 'Logout', destroy_user_session_path, method: :delete %></p>
+          <% else %>
+            <p class='navbar-item'><%= link_to 'Sign up', new_user_registration_path %></p>
+            <p class='navbar-item'><%= link_to 'Sign in', new_user_session_path %></p>
+          <% end %>
+        </div>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>
