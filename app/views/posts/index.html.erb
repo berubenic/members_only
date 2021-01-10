@@ -1,29 +1,35 @@
-<div  class='container'>
-  <h2>Posts</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Body</th>
-        <% if user_signed_in? %>
-          <th>Author</th>
+<h2 class='has-text-centered title is-4'>
+  <% if user_signed_in? %>
+    All Posts
+  <% else%>
+    Log in to see who posted!
+  <% end %>
+</h2>
+<br>
+<% if user_signed_in? %>
+  <div class='columns is-centered'>
+    <div class='column has-text-centered'>
+      <%= link_to 'New Post', new_post_path, class: 'button is-link'  %>
+    </div>
+  </div>
+<% end %>
+<hr>
+<div class='container'>
+  <div class='tile is-ancestor'>
+    <% @posts.each do |post| %>
+      <div class='box tile is-child is-4 post-box'>
+        <%= link_to post do %>
+          <div class='tile is-child'>
+            <p class='title is-5 has-text-centered'><%= post.title %></p>
+            <br>
+            <p><%= truncate(post.body) %></p>
+            <br>
+            <% if user_signed_in? %>
+              <p><strong>Author:</strong> <%= post.user.username %></p>
+            <% end %>
+          </div>
         <% end %>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @posts.each do |post| %>
-        <tr>
-          <td><%= post.title %></td>
-          <td><%= post.body %></td>
-          <% if user_signed_in? %>
-            <td><%= post.user.username %></td>
-          <% end %>
-          <td><%= link_to 'Show', post %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <br>
-  <%= link_to 'New Post', new_post_path %>
+      </div>
+    <% end %>
+  </div>
 </div>
