@@ -17,18 +17,18 @@
 <div class='container'>
   <div class='tile is-ancestor post-flex'>
     <% @posts.each do |post| %>
-      <div class='box tile is-parent is-4 post-box'>
-        <%= link_to post do %>
-          <div class='tile is-child'>
+      <div class='box tile is-parent is-4 post-box mb-1'>
+        <div class='tile is-child '>
+          <%= link_to post do %>
             <p class='title is-5 has-text-centered'><%= post.title %></p>
             <br>
-            <p><%= truncate(post.body) %></p>
+            <p><%= truncate(post.body, length: 24) %></p>
             <br>
             <% if user_signed_in? %>
               <p><strong>Author:</strong> <%= post.user.username %></p>
             <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>
